@@ -11,9 +11,6 @@ class XmlTransformer
             foreach ($json as $item) {
                 $this->handle($item, $xml);
             }
-//            for ($i = count($json) - 1; $i >= 0; $i--) {
-//                $this->handle($json[$i], $xml);
-//            }
         } else {
             $this->handle($json->toArray(), $xml);
         }
