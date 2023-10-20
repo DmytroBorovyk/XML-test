@@ -14,6 +14,18 @@ class UsersGetTest extends TestCase
         $this->assertEquals(10, $this->getUsersAmount($response->content()));
     }
 
+    public function testUsersGetWithAmount()
+    {
+        $amount = 3;
+        $response = $this->get('/api/get-users/xml?amount=' . $amount);
+        $response->assertStatus(200);
+        $this->assertEquals($amount, $this->getUsersAmount($response->content()));
+
+        $response = $this->get('/api/get-users/xml?amount=test');
+        $response->assertStatus(422);
+        $this->assertEquals("The amount must be an integer.", json_decode($response->content())->message);
+    }
+
     private function getUsersAmount($xmlData)
     {
         $xml = new SimpleXMLElement($xmlData);
